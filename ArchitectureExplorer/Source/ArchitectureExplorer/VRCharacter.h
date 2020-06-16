@@ -28,6 +28,11 @@ public:
 
 private:
 
+	void MoveForward(float throttle);
+	void MoveRight(float throttle);
+
+private:
+
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* Camera;
 
