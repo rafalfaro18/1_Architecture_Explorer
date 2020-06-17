@@ -73,5 +73,8 @@ Plugins/*/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 
-#Starter Content
-Content/StarterContent
+# Starter Content
+Content/StarterContent/
+
+# ArchViz Content
+Content/ArchVizAssets/
