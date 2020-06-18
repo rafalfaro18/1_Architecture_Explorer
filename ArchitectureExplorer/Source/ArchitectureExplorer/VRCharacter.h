@@ -35,7 +35,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* Camera;
-
+	UPROPERTY()
 	class USceneComponent* VRRoot;
+	UPROPERTY(VisibleAnywhere)
+	class UStaticMeshComponent* DestinationMarker;
 
 };
