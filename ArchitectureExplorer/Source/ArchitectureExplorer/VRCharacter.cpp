@@ -4,6 +4,7 @@
 #include "VRCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/CapsuleComponent.h"
 
 // Sets default values
 AVRCharacter::AVRCharacter()
@@ -87,7 +88,7 @@ void AVRCharacter::BeginTeleport() {
 }
 
 void AVRCharacter::FinishTeleport() {
-	SetActorLocation(DestinationMarker->GetComponentLocation());
+	SetActorLocation( DestinationMarker->GetComponentLocation() + FVector( 0, 0, GetCapsuleComponent()->GetScaledCapsuleHalfHeight() ) );
 	
 	APlayerController* PC = Cast<APlayerController>(GetController());
 	if (PC != nullptr) {
