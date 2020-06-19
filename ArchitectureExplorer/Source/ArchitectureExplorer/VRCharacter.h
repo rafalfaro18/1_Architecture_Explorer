@@ -47,6 +47,8 @@ private:
 private:
 
 	UPROPERTY(EditAnywhere)
-	float MaxTeleportDistance = 1000;
+	float TeleportFadeTime = 1;
+
+
 
 };

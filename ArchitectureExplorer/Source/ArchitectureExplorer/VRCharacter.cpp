@@ -78,5 +78,9 @@ void AVRCharacter::MoveRight(float throttle) {
 }
 
 void AVRCharacter::BeginTeleport() {
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	if (PC != nullptr) {
+		PC->PlayerCameraManager->StartCameraFade(0, 1, TeleportFadeTime, FLinearColor::Black);
+	}
 	SetActorLocation(DestinationMarker->GetComponentLocation());
 }
