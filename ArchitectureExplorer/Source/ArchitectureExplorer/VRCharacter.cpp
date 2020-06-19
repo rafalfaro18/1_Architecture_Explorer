@@ -65,6 +65,7 @@ void AVRCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 	PlayerInputComponent->BindAxis(TEXT("Forward"), this, &AVRCharacter::MoveForward);
 	PlayerInputComponent->BindAxis(TEXT("Right"), this, &AVRCharacter::MoveRight);
+	PlayerInputComponent->BindAction(TEXT("Teleport"), IE_Released, this, &AVRCharacter::BeginTeleport);
 
 }
 
@@ -74,4 +75,8 @@ void AVRCharacter::MoveForward(float throttle) {
 
 void AVRCharacter::MoveRight(float throttle) {
 	AddMovementInput(throttle * Camera->GetRightVector());
+}
+
+void AVRCharacter::BeginTeleport() {
+	SetActorLocation(DestinationMarker->GetComponentLocation());
 }

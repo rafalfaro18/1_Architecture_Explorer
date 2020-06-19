@@ -33,6 +33,8 @@ private:
 	void MoveForward(float throttle);
 	void MoveRight(float throttle);
 
+	void BeginTeleport();
+
 private:
 
 	UPROPERTY(VisibleAnywhere)
