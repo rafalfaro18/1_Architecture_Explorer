@@ -82,5 +82,15 @@ void AVRCharacter::BeginTeleport() {
 	if (PC != nullptr) {
 		PC->PlayerCameraManager->StartCameraFade(0, 1, TeleportFadeTime, FLinearColor::Black);
 	}
+	FTimerHandle Handle;
+	GetWorldTimerManager().SetTimer(Handle, this, &AVRCharacter::FinishTeleport, TeleportFadeTime);
+}
+
+void AVRCharacter::FinishTeleport() {
 	SetActorLocation(DestinationMarker->GetComponentLocation());
+	
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	if (PC != nullptr) {
+		PC->PlayerCameraManager->StartCameraFade(1, 0, TeleportFadeTime, FLinearColor::Black);
+	}
 }
