@@ -53,4 +53,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	float MaxTeleportDistance = 1000;
 
+	UPROPERTY(EditAnywhere)
+	FVector TeleportProjectionExtent = FVector(100, 100, 100);
+
 };
