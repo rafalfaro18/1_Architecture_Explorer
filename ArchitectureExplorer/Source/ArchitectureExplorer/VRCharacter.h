@@ -28,6 +28,7 @@ public:
 
 private:
 
+	bool FindTeleportDestination(FVector &OutLocation);
 	void UpdateDestinationMarker();
 
 	void MoveForward(float throttle);
@@ -35,6 +36,8 @@ private:
 
 	void BeginTeleport();
 	void FinishTeleport();
+
+	void StartFade(float FromAlpha, float ToAlpha);
 
 private:
 
