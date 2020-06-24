@@ -38,6 +38,8 @@ void AVRCharacter::BeginPlay()
 	if (BlinkerMaterialBase != nullptr) {
 		BlinkerMaterialInstance = UMaterialInstanceDynamic::Create(BlinkerMaterialBase, this);
 		PostProcessComponent->AddOrUpdateBlendable(BlinkerMaterialInstance);
+
+		BlinkerMaterialInstance->SetScalarParameterValue(TEXT("Radius"), 0.2);
 	}
 }
 
