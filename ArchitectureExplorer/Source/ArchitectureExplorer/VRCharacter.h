@@ -47,6 +47,8 @@ private:
 	class USceneComponent* VRRoot;
 	UPROPERTY(VisibleAnywhere)
 	class UStaticMeshComponent* DestinationMarker;
+	UPROPERTY()
+	class UPostProcessComponent* PostProcessComponent;
 
 private:
 
