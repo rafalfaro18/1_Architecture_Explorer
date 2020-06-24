@@ -49,6 +49,8 @@ private:
 	class UStaticMeshComponent* DestinationMarker;
 	UPROPERTY()
 	class UPostProcessComponent* PostProcessComponent;
+	UPROPERTY()
+	class UMaterialInstanceDynamic* BlinkerMaterialInstance;
 
 private:
 

@@ -7,6 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "NavigationSystem.h"
 #include "Components/PostProcessComponent.h"
+#include "Materials/MaterialInstanceDynamic.h"
 
 // Sets default values
 AVRCharacter::AVRCharacter()
@@ -33,7 +34,11 @@ void AVRCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	DestinationMarker->SetVisibility(false);
-	
+
+	if (BlinkerMaterialBase != nullptr) {
+		BlinkerMaterialInstance = UMaterialInstanceDynamic::Create(BlinkerMaterialBase, this);
+		PostProcessComponent->AddOrUpdateBlendable(BlinkerMaterialInstance);
+	}
 }
 
 // Called every frame
