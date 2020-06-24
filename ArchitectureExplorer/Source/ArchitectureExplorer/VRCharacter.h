@@ -61,4 +61,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	FVector TeleportProjectionExtent = FVector(100, 100, 100);
 
+	UPROPERTY(EditAnywhere)
+	class UMaterialInterface * BlinkerMaterialBase;
+
 };
