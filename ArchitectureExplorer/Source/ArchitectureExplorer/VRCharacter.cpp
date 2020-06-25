@@ -101,8 +101,28 @@ void AVRCharacter::UpdateBlinkers() {
 }
 
 FVector2D AVRCharacter::GetBlinkerCentre() {
-	
-	return FVector2D(0.2, 0.2);
+	FVector MovementDirection = GetVelocity().GetSafeNormal();
+
+	if (MovementDirection.IsNearlyZero()) {
+		return FVector2D(0.5, 0.5);
+	}
+
+	FVector WorldStationaryLocation = Camera->GetComponentLocation() + MovementDirection * 1000;
+
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	if (PC == nullptr) {
+		return FVector2D(0.5, 0.5);
+	}
+
+	FVector2D ScreenStationaryLocation;
+	PC->ProjectWorldLocationToScreen(WorldStationaryLocation, ScreenStationaryLocation);
+
+	int32 SizeX, SizeY;
+	PC->GetViewportSize(SizeX, SizeY);
+	ScreenStationaryLocation.X /= SizeX;
+	ScreenStationaryLocation.Y /= SizeY;
+
+	return ScreenStationaryLocation;
 }
 
 // Called to bind functionality to input
