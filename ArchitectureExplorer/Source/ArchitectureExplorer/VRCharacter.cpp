@@ -107,7 +107,13 @@ FVector2D AVRCharacter::GetBlinkerCentre() {
 		return FVector2D(0.5, 0.5);
 	}
 
-	FVector WorldStationaryLocation = Camera->GetComponentLocation() + MovementDirection * 1000;
+	FVector WorldStationaryLocation;
+	if ( FVector::DotProduct(Camera->GetForwardVector(), MovementDirection) > 0 ) {
+		WorldStationaryLocation = Camera->GetComponentLocation() + MovementDirection * 1000;
+	}
+	else {
+		WorldStationaryLocation = Camera->GetComponentLocation() - MovementDirection * 1000;
+	}
 
 	APlayerController* PC = Cast<APlayerController>(GetController());
 	if (PC == nullptr) {
