@@ -66,4 +66,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	class UMaterialInterface * BlinkerMaterialBase;
 
+	UPROPERTY(EditAnywhere)
+	class UCurveFloat * RadiusVsVelocity;
+
 };
