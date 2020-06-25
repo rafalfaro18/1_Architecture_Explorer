@@ -95,6 +95,14 @@ void AVRCharacter::UpdateBlinkers() {
 	float Radius = RadiusVsVelocity->GetFloatValue(Speed);
 
 	BlinkerMaterialInstance->SetScalarParameterValue(TEXT("Radius"), Radius);
+
+	FVector2D Centre = GetBlinkerCentre();
+	BlinkerMaterialInstance->SetVectorParameterValue(TEXT("Centre"), FLinearColor(Centre.X, Centre.Y, 0));
+}
+
+FVector2D AVRCharacter::GetBlinkerCentre() {
+	
+	return FVector2D(0.2, 0.2);
 }
 
 // Called to bind functionality to input
