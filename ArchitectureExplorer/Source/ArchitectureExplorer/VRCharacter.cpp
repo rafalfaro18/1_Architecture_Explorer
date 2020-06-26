@@ -65,7 +65,8 @@ void AVRCharacter::Tick(float DeltaTime)
 }
 
 bool AVRCharacter::FindTeleportDestination(FVector &OutLocation) {
-	FVector Start = RightController->GetComponentLocation();
+	// FVector Start = RightController->GetComponentLocation();
+	FVector Start = RightController->GetComponentLocation() + FVector(5.0f, 0.0f, 0.0f); // Temp Fix for Oculus.
 	FVector Look = RightController->GetForwardVector();
 	Look = Look.RotateAngleAxis(30, RightController->GetRightVector());
 	FVector End = Start + Look * MaxTeleportDistance;
