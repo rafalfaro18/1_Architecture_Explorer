@@ -45,6 +45,10 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* Camera;
+	UPROPERTY(VisibleAnywhere)
+	class UMotionControllerComponent* LeftController;
+	UPROPERTY(VisibleAnywhere)
+	class UMotionControllerComponent* RightController;
 	UPROPERTY()
 	class USceneComponent* VRRoot;
 	UPROPERTY(VisibleAnywhere)
