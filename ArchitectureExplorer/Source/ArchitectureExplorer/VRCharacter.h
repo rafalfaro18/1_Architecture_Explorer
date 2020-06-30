@@ -52,6 +52,8 @@ private:
 	UPROPERTY()
 	class USceneComponent* VRRoot;
 	UPROPERTY(VisibleAnywhere)
+	class USplineComponent* TeleportPath;
+	UPROPERTY(VisibleAnywhere)
 	class UStaticMeshComponent* DestinationMarker;
 	UPROPERTY()
 	class UPostProcessComponent* PostProcessComponent;
