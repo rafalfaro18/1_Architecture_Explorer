@@ -60,6 +60,8 @@ private:
 	class UPostProcessComponent* PostProcessComponent;
 	UPROPERTY()
 	class UMaterialInstanceDynamic* BlinkerMaterialInstance;
+	UPROPERTY()
+	class UStaticMeshComponent* DynamicMesh;
 
 private:
 
@@ -84,4 +86,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	class UCurveFloat * RadiusVsVelocity;
 
+	UPROPERTY(EditDefaultsOnly)
+	class UStaticMesh* TeleportArchMesh;
+
+	UPROPERTY(EditDefaultsOnly)
+	class UMaterialInterface* TeleportArchMaterial;
 };

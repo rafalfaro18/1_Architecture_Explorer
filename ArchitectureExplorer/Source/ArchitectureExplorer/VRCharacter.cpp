@@ -54,6 +54,13 @@ void AVRCharacter::BeginPlay()
 		BlinkerMaterialInstance = UMaterialInstanceDynamic::Create(BlinkerMaterialBase, this);
 		PostProcessComponent->AddOrUpdateBlendable(BlinkerMaterialInstance);
 	}
+
+	DynamicMesh = NewObject<UStaticMeshComponent>(this);
+	DynamicMesh->AttachToComponent(VRRoot, FAttachmentTransformRules::KeepRelativeTransform);
+	DynamicMesh->SetStaticMesh(TeleportArchMesh);
+	DynamicMesh->SetMaterial(0, TeleportArchMaterial);
+	DynamicMesh->RegisterComponent(); // Important when a component is created dynamically outside of constructor.
+
 }
 
 // Called every frame
