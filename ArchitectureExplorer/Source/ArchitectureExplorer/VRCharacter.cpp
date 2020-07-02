@@ -117,6 +117,8 @@ void AVRCharacter::UpdateDestinationMarker() {
 	}
 	else {
 		DestinationMarker->SetVisibility(false);
+		TArray<FVector> EmptyPath;
+		DrawTeleportPath(EmptyPath);
 	}
 }
 
