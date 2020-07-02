@@ -12,6 +12,7 @@
 #include "MotionControllerComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/SplineComponent.h"
+#include "Components/SplineMeshComponent.h"
 
 // Sets default values
 AVRCharacter::AVRCharacter()
@@ -136,15 +137,16 @@ void AVRCharacter::DrawTeleportPath(const TArray<FVector> &Path) {
 
 	for (int32 i = 0; i < Path.Num(); ++i) {
 		if(TeleportPathMeshPool.Num() <= i) {
-			UStaticMeshComponent* DynamicMesh = NewObject<UStaticMeshComponent>(this);
-			DynamicMesh->AttachToComponent(VRRoot, FAttachmentTransformRules::KeepRelativeTransform);
-			DynamicMesh->SetStaticMesh(TeleportArchMesh);
-			DynamicMesh->SetMaterial(0, TeleportArchMaterial);
-			DynamicMesh->RegisterComponent(); // Important when a component is created dynamically outside of constructor.
-			TeleportPathMeshPool.Add(DynamicMesh);
+			USplineMeshComponent* SplineMesh = NewObject<USplineMeshComponent>(this);
+			SplineMesh->SetMobility(EComponentMobility::Movable);
+			SplineMesh->AttachToComponent(VRRoot, FAttachmentTransformRules::KeepRelativeTransform);
+			SplineMesh->SetStaticMesh(TeleportArchMesh);
+			SplineMesh->SetMaterial(0, TeleportArchMaterial);
+			SplineMesh->RegisterComponent(); // Important when a component is created dynamically outside of constructor.
+			TeleportPathMeshPool.Add(SplineMesh);
 		}
-		UStaticMeshComponent* DynamicMesh = TeleportPathMeshPool[i];
-		DynamicMesh->SetWorldLocation(Path[i]);
+		USplineMeshComponent* SplineMesh = TeleportPathMeshPool[i];
+		SplineMesh->SetWorldLocation(Path[i]);
 	}
 }
 
