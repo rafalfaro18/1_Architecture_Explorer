@@ -134,6 +134,10 @@ void AVRCharacter::UpdateBlinkers() {
 
 void AVRCharacter::DrawTeleportPath(const TArray<FVector> &Path) {
 	UpdateSpline(Path);
+
+	for (USplineMeshComponent* SplineMesh : TeleportPathMeshPool) {
+		SplineMesh->SetVisibility(false);
+	}
 	
 	int32 SegmentNum = Path.Num() - 1;
 	for (int32 i = 0; i < SegmentNum; ++i) {
@@ -147,6 +151,7 @@ void AVRCharacter::DrawTeleportPath(const TArray<FVector> &Path) {
 			TeleportPathMeshPool.Add(SplineMesh);
 		}
 		USplineMeshComponent* SplineMesh = TeleportPathMeshPool[i];
+		SplineMesh->SetVisibility(true);
 
 		FVector StartPos, StartTangent, EndPos, EndTangent;
 		TeleportPath->GetLocalLocationAndTangentAtSplinePoint(i, StartPos, StartTangent);
