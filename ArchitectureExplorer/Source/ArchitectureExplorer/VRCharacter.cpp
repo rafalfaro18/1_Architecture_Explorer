@@ -230,7 +230,9 @@ void AVRCharacter::BeginTeleport() {
 }
 
 void AVRCharacter::FinishTeleport() {
-	SetActorLocation( DestinationMarker->GetComponentLocation() + FVector( 0, 0, GetCapsuleComponent()->GetScaledCapsuleHalfHeight() ) );
+	FVector Destination = DestinationMarker->GetComponentLocation();
+	Destination += GetCapsuleComponent()->GetScaledCapsuleHalfHeight() * GetActorUpVector();
+	SetActorLocation( Destination );
 	
 	StartFade(1, 0);
 }
