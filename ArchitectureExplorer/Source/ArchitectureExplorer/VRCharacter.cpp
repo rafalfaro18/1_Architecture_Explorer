@@ -134,19 +134,24 @@ void AVRCharacter::UpdateBlinkers() {
 
 void AVRCharacter::DrawTeleportPath(const TArray<FVector> &Path) {
 	UpdateSpline(Path);
-
-	for (int32 i = 0; i < Path.Num(); ++i) {
+	
+	int32 SegmentNum = Path.Num() - 1;
+	for (int32 i = 0; i < SegmentNum; ++i) {
 		if(TeleportPathMeshPool.Num() <= i) {
 			USplineMeshComponent* SplineMesh = NewObject<USplineMeshComponent>(this);
 			SplineMesh->SetMobility(EComponentMobility::Movable);
-			SplineMesh->AttachToComponent(VRRoot, FAttachmentTransformRules::KeepRelativeTransform);
+			SplineMesh->AttachToComponent(TeleportPath, FAttachmentTransformRules::KeepRelativeTransform);
 			SplineMesh->SetStaticMesh(TeleportArchMesh);
 			SplineMesh->SetMaterial(0, TeleportArchMaterial);
 			SplineMesh->RegisterComponent(); // Important when a component is created dynamically outside of constructor.
 			TeleportPathMeshPool.Add(SplineMesh);
 		}
 		USplineMeshComponent* SplineMesh = TeleportPathMeshPool[i];
-		SplineMesh->SetWorldLocation(Path[i]);
+
+		FVector StartPos, StartTangent, EndPos, EndTangent;
+		TeleportPath->GetLocalLocationAndTangentAtSplinePoint(i, StartPos, StartTangent);
+		TeleportPath->GetLocalLocationAndTangentAtSplinePoint(i + 1, EndPos, EndTangent);
+		SplineMesh->SetStartAndEnd(StartPos, StartTangent, EndPos, EndTangent);
 	}
 }
 
