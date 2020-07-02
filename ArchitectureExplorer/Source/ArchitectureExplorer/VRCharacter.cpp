@@ -82,7 +82,6 @@ bool AVRCharacter::FindTeleportDestination(TArray<FVector> &OutPath, FVector &Ou
 		ECollisionChannel::ECC_Visibility,
 		this
 	);
-	Params.DrawDebugType = EDrawDebugTrace::ForOneFrame;
 	Params.bTraceComplex = true; // Fixes tp cylinder in some parts of the floor.
 	FPredictProjectilePathResult Result;
 	bool bHit = UGameplayStatics::PredictProjectilePath(this, Params, Result);
