@@ -13,6 +13,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Components/SplineComponent.h"
 #include "Components/SplineMeshComponent.h"
+#include "HandController.h"
 
 // Sets default values
 AVRCharacter::AVRCharacter()
@@ -26,38 +27,8 @@ AVRCharacter::AVRCharacter()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(VRRoot);
 
-	LeftController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("LeftController"));
-	LeftController->SetupAttachment(VRRoot);
-	LeftController->SetTrackingSource(EControllerHand::Left);
-
-	RightController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("RightController"));
-	RightController->SetupAttachment(VRRoot);
-	RightController->SetTrackingSource(EControllerHand::Right);
-
-	/*
-
-	// Notes for lecture 24
-	
-	LeftController = GetWorld()->SpawnActor<AHandController>(HandControllerClass);
-	if (LeftController != nullptr)
-	{
-		LeftController->AttachToComponent(VRRoot, FAttachmentTransformRules::KeepRelativeTransform);
-		LeftController->SetHand(EControllerHand::Left);
-		LeftController->SetOwner(this); // FIX FOR 4.22
-	}
- 
-	RightController = GetWorld()->SpawnActor<AHandController>(HandControllerClass);
-	if (RightController != nullptr)
-	{
-		RightController->AttachToComponent(VRRoot, FAttachmentTransformRules::KeepRelativeTransform);
-		RightController->SetHand(EControllerHand::Right);
-		RightController->SetOwner(this); // FIX FOR 4.22
-	} 
-	
-	*/
-
 	TeleportPath = CreateDefaultSubobject<USplineComponent>(TEXT("TeleportPath"));
-	TeleportPath->SetupAttachment(RightController);
+	TeleportPath->SetupAttachment(VRRoot);
 	
 	DestinationMarker = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DestinationMarker"));
 	DestinationMarker->SetupAttachment(GetRootComponent());
@@ -77,6 +48,20 @@ void AVRCharacter::BeginPlay()
 		BlinkerMaterialInstance = UMaterialInstanceDynamic::Create(BlinkerMaterialBase, this);
 		PostProcessComponent->AddOrUpdateBlendable(BlinkerMaterialInstance);
 	}
+
+	LeftController = GetWorld()->SpawnActor<AHandController>(HandControllerClass);
+	if (LeftController != nullptr) {
+		LeftController->AttachToComponent(VRRoot, FAttachmentTransformRules::KeepRelativeTransform);
+		LeftController->SetHand(EControllerHand::Left);
+		LeftController->SetOwner(this);
+	}
+
+	RightController = GetWorld()->SpawnActor<AHandController>(HandControllerClass);
+	if (RightController != nullptr) {
+		RightController->AttachToComponent(VRRoot, FAttachmentTransformRules::KeepRelativeTransform);
+		RightController->SetHand(EControllerHand::Right);
+		RightController->SetOwner(this);
+	}
 }
 
 // Called every frame
@@ -93,9 +78,9 @@ void AVRCharacter::Tick(float DeltaTime)
 }
 
 bool AVRCharacter::FindTeleportDestination(TArray<FVector> &OutPath, FVector &OutLocation) {
-	FVector Start = RightController->GetComponentLocation();
+	FVector Start = RightController->GetActorLocation();
 	// FVector Start = RightController->GetComponentLocation() + FVector(5.0f, 0.0f, 0.0f); // Temp Fix for Oculus.
-	FVector Look = RightController->GetForwardVector();
+	FVector Look = RightController->GetActorForwardVector();
 
 	FPredictProjectilePathParams Params(
 		TeleportProjectileRadius,
