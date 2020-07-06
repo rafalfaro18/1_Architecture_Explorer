@@ -35,6 +35,7 @@ void AHandController::Tick(float DeltaTime)
 }
 
 void  AHandController::ActorBeginOverlap(AActor* OverlappedActor, AActor* OtherActor) {
+	UE_LOG(LogTemp, Warning, TEXT("Begin Overla´p"));
 	bool bNewCanClimb = CanClimb();
 
 	if (!bCanClimb && bNewCanClimb) {
