@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "MotionControllerComponent.h"
+#include "Haptics/HapticFeedbackEffect_Base.h"
 #include "HandController.generated.h"
 
 UCLASS()
@@ -43,7 +44,7 @@ private:
 
 	// Parameters
 	UPROPERTY(EditDefaultsOnly)
-	class UHapticFeedbackEffect_Base* HapticEffect;
+	UHapticFeedbackEffect_Base* HapticEffect;
 
 	// State
 	bool bCanClimb = false;

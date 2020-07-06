@@ -4,7 +4,6 @@
 #include "HandController.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
-#include "Haptics/HapticFeedbackEffect_Base.h"
 
 // Sets default values
 AHandController::AHandController()
@@ -42,7 +41,13 @@ void  AHandController::ActorBeginOverlap(AActor* OverlappedActor, AActor* OtherA
 		if (Pawn != nullptr) {
 			APlayerController* Controller = Cast<APlayerController>(Pawn->GetController());
 			if (Controller != nullptr) {
-				UE_LOG(LogTemp, Warning, TEXT("Play Haptic Feedback!"));
+				FString Hand = "Hand: ";
+				if (MotionController->GetTrackingSource() == EControllerHand::Left) {
+					Hand = "Left";
+				} else if (MotionController->GetTrackingSource() == EControllerHand::Right) {
+					Hand = "Right";
+				}
+				UE_LOG(LogTemp, Warning, TEXT("%s"), *Hand);
 				Controller->PlayHapticEffect(HapticEffect, MotionController->GetTrackingSource());
 			}
 		}
