@@ -24,6 +24,8 @@ AVRCharacter::AVRCharacter()
 	VRRoot = CreateDefaultSubobject<USceneComponent>(TEXT("VRRoot"));
 	VRRoot->SetupAttachment(GetRootComponent());
 
+	VRRoot->AddWorldOffset(FVector(0,0,88)); // Temporary Fix for VRRoot at capsule's center. Not part of course.
+
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(VRRoot);
 
