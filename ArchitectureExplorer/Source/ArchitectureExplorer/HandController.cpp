@@ -5,6 +5,8 @@
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
 #include "Haptics/HapticFeedbackEffect_Base.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 AHandController::AHandController()
@@ -76,9 +78,21 @@ void AHandController::Grip() {
 	if (!bIsClimbing) {
 		bIsClimbing = true;
 		ClimbingStartLocation = GetActorLocation();
+
+		ACharacter* Character = Cast<ACharacter>(GetAttachParentActor());
+		if (Character != nullptr) {
+			Character->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
+		}
 	}
 }
 
 void AHandController::Release() {
-	bIsClimbing = false;
+	if (bIsClimbing) {
+		bIsClimbing = false;
+
+		ACharacter* Character = Cast<ACharacter>(GetAttachParentActor());
+		if (Character != nullptr) {
+			Character->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Falling);
+		}
+	}
 }
